@@ -33,6 +33,14 @@
               >Popular Movies</a
             >
           </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              :class="{ active: currentPage === 'favorite-movies' }"
+              @click.prevent="$emit('onChangePage', 'favorite-movies')"
+              >Favorite Movies</a
+            >
+          </li>
         </ul>
       </div>
     </div>
