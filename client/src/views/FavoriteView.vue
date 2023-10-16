@@ -19,5 +19,13 @@ export default {
   },
   props: ["favoriteMovies"],
   emits: ["fetchFavoriteMovies"],
+  methods: {
+    fetchHandler() {
+      this.$emit("fetchFavoriteMovies");
+    },
+  },
+  created() {
+    this.fetchHandler();
+  },
 };
 </script>

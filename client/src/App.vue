@@ -36,14 +36,41 @@ export default {
         console.log(error);
       }
     },
-    fetchPopularMovies() {
+    async fetchPopularMovies() {
       // fetch popular movies
+      try {
+        const { data } = await axios({
+          url: BASE_URL + "/movies/popular",
+          method: "GET",
+        });
+        this.popularMovies = data;
+      } catch (error) {
+        console.log(error);
+      }
     },
-    fetchFavoriteMovies() {
+    async fetchFavoriteMovies() {
       // fetch favorite movies
+      try {
+        const { data } = await axios({
+          url: BASE_URL + "/movies/favorites",
+          method: "GET",
+        });
+        this.favoriteMovies = data;
+      } catch (error) {
+        console.log(error);
+      }
     },
-    addFavoriteMovie() {
-      // add favorite movie
+    async addFavoriteMovie(id) {
+      // add favorite movie to server
+      try {
+        await axios({
+          method: "POST",
+          url: BASE_URL + "/movies/favorites/" + id,
+        });
+        this.currentPage = "favorite-movies";
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };
@@ -60,6 +87,7 @@ export default {
     v-if="currentPage === 'popular-movies'"
     :popularMovies="popularMovies"
     @fetchPopularMovies="fetchPopularMovies"
+    @addMovieFav="addFavoriteMovie"
   />
   <FavoriteView
     v-if="currentPage === 'favorite-movies'"

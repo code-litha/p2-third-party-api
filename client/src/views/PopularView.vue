@@ -5,7 +5,12 @@
       Data Not Found
     </p>
     <div class="row row-cols-1 row-cols-md-5 g-4">
-      <Card v-for="movie in popularMovies" :key="movie.id" :movie="movie" />
+      <Card
+        v-for="movie in popularMovies"
+        :key="movie.id"
+        :movie="movie"
+        @click.prevent="sendDataToFavMovie(movie.id)"
+      />
     </div>
   </div>
 </template>
@@ -18,6 +23,17 @@ export default {
     Card,
   },
   props: ["popularMovies"],
-  emits: ["fetchPopularMovies"],
+  emits: ["fetchPopularMovies", "addMovieFav"],
+  methods: {
+    fetchHandler() {
+      this.$emit("fetchPopularMovies");
+    },
+    sendDataToFavMovie(id) {
+      this.$emit("addMovieFav", id);
+    },
+  },
+  created() {
+    this.fetchHandler();
+  },
 };
 </script>
